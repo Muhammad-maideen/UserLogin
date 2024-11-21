@@ -1,12 +1,24 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const UpdateProfile = () => {
+  const API_URL = "https://user-login-rose.vercel.app/";
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     number: "",
     image: null,
   });
+
+
+  const fetchdata = async () => {
+    try {
+      const response = await axios.get(API_URL);
+      setPosts(response.data);
+    } catch (error) {
+      console.log("Error fetching posts:", error);
+    }
+  };
 
   const [isEditable, setIsEditable] = useState(true);
 
@@ -19,20 +31,17 @@ const UpdateProfile = () => {
     });
   };
 
-  // Handle submit
   const handleSubmit = (e) => {
     
     e.preventDefault();
-    setIsEditable(false); // Disable editing after submission
+    setIsEditable(false); 
     console.log("Submitted Data:", formData);
   };
 
-  // Enable edit mode
   const handleEdit = () => {
-    setIsEditable(true); // Allow editing
+    setIsEditable(true); 
   };
 
-  // Handle delete
   const handleDelete = (field) => {
     setFormData({ name: "", email: "", number: "", image: "" });
 
@@ -40,7 +49,7 @@ const UpdateProfile = () => {
   
 
   return (
-    <div className="profilesumbitform max-w-md mx-auto mt-10 bg-gray-600 shadow-lg rounded-lg p-6">
+    <div className="profilesumbitform max-w-md mx-auto mt-10 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg rounded-lg p-6">
       <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
         Profile
       </h1>
@@ -160,21 +169,21 @@ const UpdateProfile = () => {
         <div className="flex justify-between items-center mb-4">
           <button
             type="submit"
-            className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
+            className="bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 text-white px-4 py-2 rounded-md hover:bg-indigo-600"
           >
             Submit
           </button>
           <button
             type="button"
             onClick={handleEdit}
-            className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+            className="bg-gradient-to-r from-yellow-400 via-yellow-600 to-yellow-700 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
           >
             Edit
           </button>
           <button
             type="button"
             onClick={() => setFormData({ name: "", email: "", number: "", image: null })}
-            className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+            className="bg-gradient-to-r from-red-600 via-red-700 to-red-900 text-white px-4 py-2 rounded-md hover:bg-red-600"
           >
             Delete All
           </button>
